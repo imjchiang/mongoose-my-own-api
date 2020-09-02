@@ -43,5 +43,20 @@ router.post("/", function(req, res)
     });
 });
 
+//DELETE /coolStuff
+router.delete("/", function(req, res)
+{
+    db.CoolStuff.deleteMany()
+    .then(() =>
+    {
+        res.status(204).send({message: "They are all gone!"});
+    })
+    .catch(err =>
+    {
+        console.log(err);
+        res.status(503).send({messsage: "Server Error"});
+    });
+})
+
 //export these routes so the can be used in index.js
 module.exports = router;
