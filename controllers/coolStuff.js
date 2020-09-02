@@ -58,5 +58,27 @@ router.delete("/", function(req, res)
     });
 })
 
+//GET /coolStuff/:id
+router.get("/:id", function(req, res)
+{
+    db.CoolStuff.findById(req.params.id)
+    .then(foundCoolStuff =>
+    {
+        if (foundCoolStuff)
+        {
+            res.send(foundCoolStuff);
+        }
+        else
+        {
+            res.status(404).send({message: "Resource not located"});
+        }
+    })
+    .catch(err =>
+    {
+        console.log(err);
+        res.status(503).send({message: "Service Unvailable"});
+    });
+});
+
 //export these routes so the can be used in index.js
 module.exports = router;
