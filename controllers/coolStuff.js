@@ -80,5 +80,27 @@ router.get("/:id", function(req, res)
     });
 });
 
+//PUT /coolStuff/:id
+router.put("/:id", function(req, res)
+{
+    db.CoolStuff.findOneAndUpdate(
+    {
+        _id: req.params.id
+    },
+    req.body,
+    {
+        new: true
+    })
+    .then(updatedCoolStuff =>
+    {
+        res.send(updatedCoolStuff);
+    })
+    .catch(err =>
+    {
+        console.log(err);
+        res.status(503).send({message: "Server Error"});
+    })
+});
+
 //export these routes so the can be used in index.js
 module.exports = router;
