@@ -1,20 +1,17 @@
-const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost/myAPI",
+const express = require("express");
+const app = express();
+
+app.use(express.urlencoded({extended: false}));
+app.use(express.json())
+
+app.use("/coolStuff", require("./controllers/coolStuff"));
+
+app.get("/", function(req, res)
 {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
+    res.send("You hit the Home Page");
 });
 
-const db = mongoose.connection;
-
-db.once("open", () =>
+app.listen(8000, () =>
 {
-    console.log(`Connected to MongoDb at ${db.host}:${db.port}`);
+    console.log("Listening to port 8000");
 });
-
-db.on("error", err =>
-{
-    console.log(`Database error:\n${err}`);
-});
-
-module.exports.CoolStuff = require("./coolStuff");
