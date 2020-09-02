@@ -1,5 +1,21 @@
 const mongoose = require("mongoose");
 
+let ownerSchema = new mongoose.Schema(
+{
+    name:
+    {
+        type: String,
+        required: true,
+        minlength: 1,
+        maxlength: 50
+    },
+    netWorth:
+    {
+        type: Number,
+        default: 100
+    }
+});
+
 let coolStuffSchema = new mongoose.Schema(
 {
     name: 
@@ -9,11 +25,7 @@ let coolStuffSchema = new mongoose.Schema(
         minlength: 2,
         maxlength: 100
     },
-    owner: 
-    {
-        type: String,
-        required: true
-    },
+    owner: {ownerSchema},
     value:
     {
         type: Number,
