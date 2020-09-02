@@ -102,5 +102,20 @@ router.put("/:id", function(req, res)
     })
 });
 
+//DELETE /coolStuff/:id
+router.delete("/:id", function(req, res)
+{
+    db.CoolStuff.findByIdAndDelete(req.params.id)
+    .then(() =>
+    {
+        res.status(204).send();
+    })
+    .catch(err =>
+    {
+        console.log(err);
+        res.status(503).send({message: "Server Error"});
+    })
+});
+
 //export these routes so the can be used in index.js
 module.exports = router;
